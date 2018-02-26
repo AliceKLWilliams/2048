@@ -33,5 +33,7 @@ $tile-width: 75px;
         height: $tile-height;
 
         background-color:black;
+
+        transition: all 5s linear;
     }
 }

@@ -8,7 +8,29 @@ window.onload = function(){
 }
 
 function AddEventListeners(){
+    window.addEventListener("keydown", handleKeyPress, false);
+}
 
+function handleKeyPress(e){
+    if(e.key == "ArrowDown"){
+        HandleArrowDown();
+    }
+}
+
+function HandleArrowDown(){
+    // Change Representations
+    for(let row = gridSize - 2; row >= 0; row--){
+        for(let col = 0; col < gridSize; col++){
+            if(grid[row][col]){
+                let tile = grid[row][col];
+                tile.MoveTo(row+1, col);
+
+                // Move tile in Model representation
+                grid[row+1][col] = tile;
+                grid[row][col] = null;
+            }
+        }
+    }
 }
 
 function GetRandomPosition(){

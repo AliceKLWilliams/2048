@@ -5,7 +5,8 @@ class Tile{
         this.row = row;
         this.col = col;
 
-        this.Draw();
+        this.SetPosition();
+        this.grid.appendChild(this.element);
     }
 
     CalculateTop(){
@@ -24,10 +25,15 @@ class Tile{
         return childBox.left - parentBox.left;
     }
 
-    Draw(){
+    MoveTo(row, col){
+        this.row = row;
+        this.col = col;
+        this.SetPosition();
+    }
+
+    SetPosition(){
         this.element.style.top = this.CalculateTop() +"px";
         this.element.style.left = this.CalculateLeft() + "px";
-        this.grid.appendChild(this.element);
     }
 
     changeNum(newNum){

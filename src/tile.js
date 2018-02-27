@@ -1,9 +1,13 @@
 class Tile{
-    constructor(grid, element, row, col){
+    constructor(grid, row, col){
         this.grid = grid;
-        this.element = element;
         this.row = row;
         this.col = col;
+
+        let newDiv = document.createElement("div");
+        newDiv.classList.add("grid__tile");
+        
+        this.element = newDiv;
 
         this.SetPosition();
         this.grid.appendChild(this.element);

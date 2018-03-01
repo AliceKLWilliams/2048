@@ -37,18 +37,17 @@ function HandleArrowLeft(){
 
             if(!grid.IsSquareEmpty(row, col)){
                 let newCol = -1;
+                let canMove = true;
 
                 for(let i = col-1; i >= 0; i--){
                     if(grid.IsSquareEmpty(row, i) || grid.AreEqualValue(row, i, row, col)){
                         newCol = i;
+                    } else{
+                        canMove = false;
                     }
                 }
 
-                if(newCol !== -1){
-                    
-                }
-
-                if(newCol !== -1){
+                if(newCol !== -1 && canMove){
                     if(!grid.IsSquareEmpty(row, newCol)){
                         grid.MergeTiles(row, col, row, newCol);
                     } else{
@@ -66,14 +65,17 @@ function HandleArrowRight(){
         for(let col = grid.GetGridSize() - 2; col >= 0; col--){
             if(!grid.IsSquareEmpty(row, col)){
                 let newCol = -1;
+                let canMove = true;
 
                 for(let i = col+1; i < grid.GetGridSize(); i++){
                     if(grid.IsSquareEmpty(row, i) || grid.AreEqualValue(row, i, row, col)){
                         newCol = i;
+                    } else{
+                        canMove = false;
                     }
                 }
 
-                if(newCol !== -1){
+                if(newCol !== -1 && canMove){
                     if(!grid.IsSquareEmpty(row, newCol)){
                         grid.MergeTiles(row, col, row, newCol);
                     } else{
@@ -91,14 +93,17 @@ function HandleArrowUp(){
         for(let col = 0; col < grid.GetGridSize(); col++){
             if(!grid.IsSquareEmpty(row, col)){
                 let newRow = -1;
+                let canMove = true;
 
                 for(let i = row-1; i >= 0; i--){
                     if(grid.IsSquareEmpty(i, col) || grid.AreEqualValue(i, col, row, col)){
                         newRow = i;
+                    } else{
+                        canMove = false;
                     }
                 }
 
-                if(newRow !== -1){
+                if(newRow !== -1 && canMove){
                     if(!grid.IsSquareEmpty(newRow, col)){
                         grid.MergeTiles(row, col, newRow, col);
                     } else{
@@ -118,15 +123,18 @@ function HandleArrowDown(){
             // Only continue if we have a square
             if(!grid.IsSquareEmpty(row, col)){
                 let newRow = -1;
+                let canMove = true;
 
                 // Look for the last empty square
                 for(let i = row+1; i<grid.GetGridSize(); i++){
                     if(grid.IsSquareEmpty(i, col) || grid.AreEqualValue(i, col, row, col)){
                         newRow = i;
+                    } else{
+                        canMove = false;
                     }
                 }
 
-                if(newRow !== -1){
+                if(newRow !== -1 && canMove){
                     if(!grid.IsSquareEmpty(newRow, col)){
                         grid.MergeTiles(row, col, newRow, col);
                     } else{
@@ -136,14 +144,26 @@ function HandleArrowDown(){
             }
         }
     }
+
+    setTimeout(grid.AddRandomTile.bind(grid), 400);
+
 }
 
 function StartGame(){
-    for(let i = 0; i < 2; i++){
-        let newPosition = grid.GetEmptyPosition();
-        let tile = new Tile(gridElement, newPosition.x, newPosition.y, GetStartingValue());
-        grid.AddTile(tile);
-    }
+    // for(let i = 0; i < 2; i++){
+    //     let newPosition = grid.GetEmptyPosition();
+    //     let tile = new Tile(gridElement, newPosition.x, newPosition.y, GetStartingValue());
+    //     grid.AddTile(tile);
+    // }
+
+    let t1 = new Tile(gridElement, 2, 0,  2);
+    let t2 = new Tile(gridElement, 2, 1,  4);
+    let t3 = new Tile(gridElement, 2, 2,  2);
+
+    grid.AddTile(t1);
+    grid.AddTile(t2);
+    grid.AddTile(t3);
+
 }
 
 function GetStartingValue(){

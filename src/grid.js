@@ -45,7 +45,7 @@ class Grid{
 
         this.MoveTile(fromRow, fromCol, toRow, toCol);
         
-        window.setTimeout(function(){
+        setTimeout(function(){
             toTile.Delete();
             fromTile.SetValue(toTile.GetValue() + fromTile.GetValue());
         }, 300);
@@ -67,5 +67,26 @@ class Grid{
             }
         }
         return newPos;
+    }
+
+    IsGridFull(){
+        let isFull = true;
+        for(let row = 0; row < this.GetGridSize(); row++){
+            for(let col = 0; col < this.GetGridSize(); col++){
+                if(this.IsSquareEmpty(row, col)){
+                    isFull = false;
+                }
+            }
+        }
+        return isFull;
+    }
+
+    AddRandomTile(){
+        console.log(this);
+        if(!this.IsGridFull()){
+            let newPosition = this.GetEmptyPosition();
+            let tile = new Tile(gridElement, newPosition.x, newPosition.y, 2);
+            this.AddTile(tile);
+        }
     }
 }

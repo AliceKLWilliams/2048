@@ -1,20 +1,30 @@
 class Tile{
-    constructor(grid, row, col){
-        this.grid = grid;
+    constructor(gridElement, row, col, value){
+        this.gridElement = gridElement;
         this.row = row;
         this.col = col;
+        this.value = value;
+        
+        this.element = null;
 
+        this.CreateElement();
+    }
+    
+    CreateElement(){
         let newDiv = document.createElement("div");
         newDiv.classList.add("grid__tile");
-        
+        newDiv.classList.add("grid__tile-"+this.value);
+
+        newDiv.textContent = this.value;
+
         this.element = newDiv;
 
         this.SetPosition();
-        this.grid.appendChild(this.element);
+        this.gridElement.appendChild(this.element);
     }
 
     CalculateTop(){
-        let parentBox = this.grid.getBoundingClientRect();
+        let parentBox = this.gridElement.getBoundingClientRect();
         
         let gridRow = document.querySelectorAll(".grid__row")[this.row];
         let childBox = gridRow.querySelector(".grid__square").getBoundingClientRect();
@@ -23,10 +33,14 @@ class Tile{
     }
 
     CalculateLeft(){
-        let parentBox = this.grid.getBoundingClientRect();
+        let parentBox = this.gridElement.getBoundingClientRect();
         let childBox = document.querySelectorAll(".grid__square")[this.col].getBoundingClientRect();
 
         return childBox.left - parentBox.left;
+    }
+
+    Delete(){
+        this.gridElement.removeChild(this.element);
     }
 
     MoveTo(row, col){
@@ -40,8 +54,15 @@ class Tile{
         this.element.style.left = this.CalculateLeft() + "px";
     }
 
-    changeNum(newNum){
+    SetValue(newNum){
         this.element.textContent = newNum;
+        this.element.classList.remove("grid__tile-"+this.value);
+        this.value = newNum;
+        this.element.classList.add("grid__tile-"+this.value);
+    }
+
+    GetValue(){
+        return this.value;
     }
 
 }

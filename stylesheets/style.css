@@ -28,17 +28,17 @@ html, body {
     color: #776e65;
     font-size: 28pt;
     transition: top 0.3s linear, left 0.3s linear; }
-    .grid__tile-2, .grid__tile-4 {
+    .grid__tile--2, .grid__tile--4 {
       background-color: #ede0c8; }
-    .grid__tile-8, .grid__tile-16 {
+    .grid__tile--8, .grid__tile--16 {
       background-color: #f2b179; }
-    .grid__tile-32 {
+    .grid__tile--32 {
       background-color: #f67c5f; }
-    .grid__tile-64 {
+    .grid__tile--64 {
       background-color: #f65e3b; }
-    .grid__tile-128, .grid__tile-256 .grid__tile-512 {
+    .grid__tile--128, .grid__tile--256 .grid__tile--512 {
       background-color: #edcf72; }
-    .grid__tile-1024, .grid__tile-2054 {
+    .grid__tile--1024, .grid__tile--2054 {
       background-color: #edc22e; }
 
 /*# sourceMappingURL=style.css.map */

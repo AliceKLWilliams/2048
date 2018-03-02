@@ -43,27 +43,27 @@ $tile-width: 75px;
 
         transition: top 0.3s linear, left 0.3s linear;
 
-        &-2, &-4{
+        &--2, &--4{
             background-color: #ede0c8;
         }
 
-        &-8, &-16{
+        &--8, &--16{
             background-color: #f2b179;
         }
 
-        &-32{
+        &--32{
             background-color: #f67c5f;
         }
 
-        &-64{
+        &--64{
             background-color: #f65e3b;
         }
 
-        &-128, &-256 &-512{
+        &--128, &--256 &--512{
             background-color: #edcf72;
         }
 
-        &-1024, &-2054{
+        &--1024, &--2054{
             background-color:#edc22e
         }
 

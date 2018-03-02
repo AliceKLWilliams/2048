@@ -1,6 +1,6 @@
 let gridSize = 3;
 
-let grid = new Grid(gridSize);
+let grid = new GridModel(gridSize);
 let gridElement = document.querySelector(".grid");
 let keypress = false;
 
@@ -36,23 +36,21 @@ function HandleArrowLeft(){
         for(let col = 1; col <= grid.GetGridSize()-1; col++){
 
             if(!grid.IsSquareEmpty(row, col)){
-                let newCol = -1;
-                let canMove = true;
 
-                for(let i = col-1; i >= 0; i--){
-                    if(grid.IsSquareEmpty(row, i) || grid.AreEqualValue(row, i, row, col)){
-                        newCol = i;
-                    } else{
-                        canMove = false;
-                    }
+                let i = col;
+                while(i >0 && grid.IsSquareEmpty(row, i-1)){
+                    i--;
                 }
 
-                if(newCol !== -1 && canMove){
-                    if(!grid.IsSquareEmpty(row, newCol)){
-                        grid.MergeTiles(row, col, row, newCol);
+
+                if(i >0){
+                    if(grid.GetTile(row, i-1).GetValue() === grid.GetTile(row, col).GetValue()){
+                        grid.MergeTiles(row, col, row, i-1);
                     } else{
-                        grid.MoveTile(row, col, row, newCol);
+                        grid.MoveTile(row, col, row, i);
                     }
+                }else{
+                    grid.MoveTile(row, col, row, i);
                 }
             }
         }
@@ -64,23 +62,19 @@ function HandleArrowRight(){
     for(let row = 0; row < grid.GetGridSize(); row++){
         for(let col = grid.GetGridSize() - 2; col >= 0; col--){
             if(!grid.IsSquareEmpty(row, col)){
-                let newCol = -1;
-                let canMove = true;
-
-                for(let i = col+1; i < grid.GetGridSize(); i++){
-                    if(grid.IsSquareEmpty(row, i) || grid.AreEqualValue(row, i, row, col)){
-                        newCol = i;
-                    } else{
-                        canMove = false;
-                    }
+                let i = col;
+                while(i < grid.GetGridSize()-1 && grid.IsSquareEmpty(row, i+1)){
+                    i++;
                 }
 
-                if(newCol !== -1 && canMove){
-                    if(!grid.IsSquareEmpty(row, newCol)){
-                        grid.MergeTiles(row, col, row, newCol);
+                if(i< grid.GetGridSize()-1){
+                    if(grid.GetTile(row, i+1).GetValue() === grid.GetTile(row, col).GetValue()){
+                        grid.MergeTiles(row, col, row, i+1);
                     } else{
-                        grid.MoveTile(row, col, row, newCol);
+                        grid.MoveTile(row, col, row, i);
                     }
+                }else{
+                    grid.MoveTile(row, col, row, i);
                 }
             }
         }
@@ -92,23 +86,20 @@ function HandleArrowUp(){
     for(let row = 1; row < grid.GetGridSize(); row++){
         for(let col = 0; col < grid.GetGridSize(); col++){
             if(!grid.IsSquareEmpty(row, col)){
-                let newRow = -1;
-                let canMove = true;
 
-                for(let i = row-1; i >= 0; i--){
-                    if(grid.IsSquareEmpty(i, col) || grid.AreEqualValue(i, col, row, col)){
-                        newRow = i;
-                    } else{
-                        canMove = false;
-                    }
+                let i = row;
+                while(i > 0 && grid.IsSquareEmpty(i-1, col)){
+                    i--;
                 }
 
-                if(newRow !== -1 && canMove){
-                    if(!grid.IsSquareEmpty(newRow, col)){
-                        grid.MergeTiles(row, col, newRow, col);
+                if(i > 0){
+                    if(grid.GetTile(i-1, col).GetValue() === grid.GetTile(row, col).GetValue()){
+                        grid.MergeTiles(row, col, i-1, col);
                     } else{
-                        grid.MoveTile(row, col, newRow, col);
+                        grid.MoveTile(row, col, i, col);
                     }
+                }else{
+                    grid.MoveTile(row, col, i, col);
                 }
 
             }
@@ -122,24 +113,20 @@ function HandleArrowDown(){
         for(let col = 0; col < grid.GetGridSize(); col++){
             // Only continue if we have a square
             if(!grid.IsSquareEmpty(row, col)){
-                let newRow = -1;
-                let canMove = true;
 
-                // Look for the last empty square
-                for(let i = row+1; i<grid.GetGridSize(); i++){
-                    if(grid.IsSquareEmpty(i, col) || grid.AreEqualValue(i, col, row, col)){
-                        newRow = i;
-                    } else{
-                        canMove = false;
-                    }
+                let i = row;
+                while(i < grid.GetGridSize()-1 && grid.IsSquareEmpty(i+1, col)){
+                    i++;
                 }
 
-                if(newRow !== -1 && canMove){
-                    if(!grid.IsSquareEmpty(newRow, col)){
-                        grid.MergeTiles(row, col, newRow, col);
+                if(i< grid.GetGridSize()-1){
+                    if(grid.GetTile(i+1, col).GetValue() === grid.GetTile(row, col).GetValue()){
+                        grid.MergeTiles(row, col, i+1, col);
                     } else{
-                        grid.MoveTile(row, col, newRow, col);
+                        grid.MoveTile(row, col,i, col);
                     }
+                }else{
+                    grid.MoveTile(row, col, i, col);
                 }
             }
         }
@@ -156,14 +143,13 @@ function StartGame(){
     //     grid.AddTile(tile);
     // }
 
-    let t1 = new Tile(gridElement, 2, 0,  2);
-    let t2 = new Tile(gridElement, 2, 1,  4);
-    let t3 = new Tile(gridElement, 2, 2,  2);
+    let t1 = new TileModel(gridElement, 2, 0,  8);
+    let t2 = new TileModel(gridElement, 2, 1,  2);
+    let t3 = new TileModel(gridElement, 2, 2,  2);
 
     grid.AddTile(t1);
     grid.AddTile(t2);
     grid.AddTile(t3);
-
 }
 
 function GetStartingValue(){

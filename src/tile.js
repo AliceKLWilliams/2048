@@ -1,4 +1,4 @@
-class Tile{
+class TileModel{
     constructor(gridElement, row, col, value){
         this.gridElement = gridElement;
         this.row = row;
@@ -13,7 +13,7 @@ class Tile{
     CreateElement(){
         let newDiv = document.createElement("div");
         newDiv.classList.add("grid__tile");
-        newDiv.classList.add("grid__tile-"+this.value);
+        newDiv.classList.add("grid__tile--"+this.value);
 
         newDiv.textContent = this.value;
 
@@ -55,10 +55,13 @@ class Tile{
     }
 
     SetValue(newNum){
-        this.element.textContent = newNum;
-        this.element.classList.remove("grid__tile-"+this.value);
         this.value = newNum;
-        this.element.classList.add("grid__tile-"+this.value);
+    }
+
+    SetViewValue(newNum){
+        this.element.textContent = newNum;
+        this.element.className = "";
+        this.element.classList.add("grid__tile--"+newNum, "grid__tile");
     }
 
     GetValue(){

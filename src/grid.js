@@ -1,4 +1,4 @@
-class Grid{
+class GridModel{
     constructor(gridSize){
         this.grid = [];
         for(let i = 0; i < gridSize; i++){
@@ -31,23 +31,30 @@ class Grid{
     }
 
     MoveTile(fromRow, fromCol, toRow, toCol){
-        let tile = this.GetTile(fromRow, fromCol);
+        if(!(fromRow == toRow && fromCol == toCol)){
+            let tile = this.GetTile(fromRow, fromCol);
 
-        this.grid[toRow][toCol] = tile;
-        this.grid[fromRow][fromCol] = null;
+            this.grid[toRow][toCol] = tile;
+            this.grid[fromRow][fromCol] = null;
 
-        tile.MoveTo(toRow, toCol);
+            tile.MoveTo(toRow, toCol);
+        }
     }
 
     MergeTiles(fromRow, fromCol, toRow, toCol){
         let toTile = this.grid[toRow][toCol];
         let fromTile = this.grid[fromRow][fromCol];
+        let newValue = toTile.GetValue() + fromTile.GetValue();
 
+        // Model Things
         this.MoveTile(fromRow, fromCol, toRow, toCol);
-        
+        fromTile.SetValue(newValue);
+        fromTile.MoveTo(toRow, toCol);
+
+        //View Things
         setTimeout(function(){
             toTile.Delete();
-            fromTile.SetValue(toTile.GetValue() + fromTile.GetValue());
+            fromTile.SetViewValue(newValue);
         }, 300);
     }
 
@@ -85,7 +92,7 @@ class Grid{
         console.log(this);
         if(!this.IsGridFull()){
             let newPosition = this.GetEmptyPosition();
-            let tile = new Tile(gridElement, newPosition.x, newPosition.y, 2);
+            let tile = new TileModel(gridElement, newPosition.x, newPosition.y, 2);
             this.AddTile(tile);
         }
     }

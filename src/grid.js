@@ -1,4 +1,4 @@
-class GridModel{
+class Grid{
     constructor(gridSize){
         this.grid = [];
         for(let i = 0; i < gridSize; i++){
@@ -8,6 +8,8 @@ class GridModel{
             }
             this.grid.push(row);
         }
+
+        this.gridElement = document.querySelector(".grid");
     }
 
     GetGridSize(){
@@ -26,7 +28,8 @@ class GridModel{
         return this.grid[row][col];
     }
 
-    AddTile(newTile){
+    AddTile(row, col, value){
+        let newTile = new Tile(this.gridElement, row, col, value);
         this.grid[newTile.row][newTile.col] = newTile;
     }
 
@@ -89,11 +92,9 @@ class GridModel{
     }
 
     AddRandomTile(){
-        console.log(this);
         if(!this.IsGridFull()){
             let newPosition = this.GetEmptyPosition();
-            let tile = new TileModel(gridElement, newPosition.x, newPosition.y, 2);
-            this.AddTile(tile);
+            this.AddTile(newPosition.x, newPosition.y, GetStartingValue());
         }
     }
 }

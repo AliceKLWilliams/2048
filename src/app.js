@@ -1,7 +1,6 @@
 let gridSize = 3;
 
-let grid = new GridModel(gridSize);
-let gridElement = document.querySelector(".grid");
+let grid = new Grid(gridSize);
 let keypress = false;
 
 window.onload = function(){
@@ -137,19 +136,10 @@ function HandleArrowDown(){
 }
 
 function StartGame(){
-    // for(let i = 0; i < 2; i++){
-    //     let newPosition = grid.GetEmptyPosition();
-    //     let tile = new Tile(gridElement, newPosition.x, newPosition.y, GetStartingValue());
-    //     grid.AddTile(tile);
-    // }
-
-    let t1 = new TileModel(gridElement, 2, 0,  8);
-    let t2 = new TileModel(gridElement, 2, 1,  2);
-    let t3 = new TileModel(gridElement, 2, 2,  2);
-
-    grid.AddTile(t1);
-    grid.AddTile(t2);
-    grid.AddTile(t3);
+    for(let i = 0; i < 2; i++){
+        let newPosition = grid.GetEmptyPosition();
+        grid.AddTile(newPosition.x, newPosition.y, GetStartingValue());
+    }
 }
 
 function GetStartingValue(){

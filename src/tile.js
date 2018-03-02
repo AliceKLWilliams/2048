@@ -1,4 +1,4 @@
-class TileModel{
+class Tile{
     constructor(gridElement, row, col, value){
         this.gridElement = gridElement;
         this.row = row;

@@ -4,12 +4,12 @@ class Grid{
         for(let i = 0; i < gridSize; i++){
             let row = [];
             for(let j = 0; j < gridSize; j++){
-                row.push(null);
+                row.push(-1);
             }
             this.grid.push(row);
         }
 
-        this.gridElement = document.querySelector(".grid");
+        this.view = new GridView(gridSize);
     }
 
     GetGridSize(){
@@ -17,52 +17,48 @@ class Grid{
     }
 
     IsSquareEmpty(row, col){
-        if(this.grid[row][col]){
+        if(this.GetTileValue(row, col) !== -1){
             return false;
         } else{
             return true;
         }
     }
 
-    GetTile(row, col){
+    GetTileValue(row, col){
         return this.grid[row][col];
+    }
+    
+    SetTileValue(row, col, newValue){
+        this.grid[row][col] = newValue;
     }
 
     AddTile(row, col, value){
-        let newTile = new Tile(this.gridElement, row, col, value);
-        this.grid[newTile.row][newTile.col] = newTile;
+        this.SetTileValue(row, col, value);
+
+        this.view.AddTile(row, col, value);
     }
 
     MoveTile(fromRow, fromCol, toRow, toCol){
         if(!(fromRow == toRow && fromCol == toCol)){
-            let tile = this.GetTile(fromRow, fromCol);
 
-            this.grid[toRow][toCol] = tile;
-            this.grid[fromRow][fromCol] = null;
+            this.SetTileValue(toRow, toCol, this.GetTileValue(fromRow, fromCol));
+            this.SetTileValue(fromRow, fromCol, -1);
 
-            tile.MoveTo(toRow, toCol);
+            this.view.MoveTile(fromRow, fromCol, toRow, toCol);
         }
     }
 
     MergeTiles(fromRow, fromCol, toRow, toCol){
-        let toTile = this.grid[toRow][toCol];
-        let fromTile = this.grid[fromRow][fromCol];
-        let newValue = toTile.GetValue() + fromTile.GetValue();
+        let newValue = this.GetTileValue(toRow, toCol) + this.GetTileValue(fromRow, fromCol);
 
-        // Model Things
-        this.MoveTile(fromRow, fromCol, toRow, toCol);
-        fromTile.SetValue(newValue);
-        fromTile.MoveTo(toRow, toCol);
+        this.SetTileValue(toRow, toCol, newValue);
+        this.SetTileValue(fromRow, fromCol, -1);
 
-        //View Things
-        setTimeout(function(){
-            toTile.Delete();
-            fromTile.SetViewValue(newValue);
-        }, 300);
+        this.view.MergeTiles(fromRow, fromCol, toRow, toCol, newValue);
     }
 
     AreEqualValue(row1, col1, row2, col2){
-        return this.GetTile(row1, col1).GetValue() === this.GetTile(row2, col2).GetValue();
+        return this.GetTileValue(row1, col1) === this.GetTileValue(row2, col2);
     }
 
     GetEmptyPosition(){

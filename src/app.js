@@ -130,8 +130,6 @@ function HandleArrowDown(){
         }
     }
 
-    setTimeout(grid.AddRandomTile.bind(grid), 400);
-
 }
 
 function StartGame(){

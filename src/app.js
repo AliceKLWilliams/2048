@@ -36,20 +36,19 @@ function HandleArrowLeft(){
 
             if(!grid.IsSquareEmpty(row, col)){
 
-                let i = col;
-                while(i >0 && grid.IsSquareEmpty(row, i-1)){
-                    i--;
+                let currCol = col-1;
+                let newCol = -1;
+                while(currCol >= 0 && (grid.IsSquareEmpty(row, currCol) || grid.AreEqualValue(row, col, row, currCol))){
+                    newCol = currCol;
+                    currCol--;
                 }
 
-
-                if(i >0){
-                    if(grid.GetTile(row, i-1).GetValue() === grid.GetTile(row, col).GetValue()){
-                        grid.MergeTiles(row, col, row, i-1);
-                    } else{
-                        grid.MoveTile(row, col, row, i);
+                if(newCol !== -1){
+                    if(grid.IsSquareEmpty(row, newCol)){
+                        grid.MoveTile(row, col, row, newCol);
+                    } else {
+                        grid.MergeTiles(row, col, row, newCol);
                     }
-                }else{
-                    grid.MoveTile(row, col, row, i);
                 }
             }
         }
@@ -61,19 +60,20 @@ function HandleArrowRight(){
     for(let row = 0; row < grid.GetGridSize(); row++){
         for(let col = grid.GetGridSize() - 2; col >= 0; col--){
             if(!grid.IsSquareEmpty(row, col)){
-                let i = col;
-                while(i < grid.GetGridSize()-1 && grid.IsSquareEmpty(row, i+1)){
-                    i++;
+
+                let currCol = col+1;
+                let newCol = -1;
+                while(currCol < grid.GetGridSize() && (grid.IsSquareEmpty(row, currCol) || grid.AreEqualValue(row, col, row, currCol))){
+                    newCol = currCol;
+                    currCol++;
                 }
 
-                if(i< grid.GetGridSize()-1){
-                    if(grid.GetTile(row, i+1).GetValue() === grid.GetTile(row, col).GetValue()){
-                        grid.MergeTiles(row, col, row, i+1);
-                    } else{
-                        grid.MoveTile(row, col, row, i);
+                if(newCol !== -1){
+                    if(grid.IsSquareEmpty(row, newCol)){
+                        grid.MoveTile(row, col, row, newCol);
+                    } else {
+                        grid.MergeTiles(row, col, row, newCol);
                     }
-                }else{
-                    grid.MoveTile(row, col, row, i);
                 }
             }
         }
@@ -86,21 +86,20 @@ function HandleArrowUp(){
         for(let col = 0; col < grid.GetGridSize(); col++){
             if(!grid.IsSquareEmpty(row, col)){
 
-                let i = row;
-                while(i > 0 && grid.IsSquareEmpty(i-1, col)){
-                    i--;
+                let currRow = row-1;
+                let newRow = -1;
+                while(currRow >= 0 && (grid.IsSquareEmpty(currRow, col) || grid.AreEqualValue(row, col, currRow, col))){
+                    newRow = currRow;
+                    currRow--;
                 }
 
-                if(i > 0){
-                    if(grid.GetTile(i-1, col).GetValue() === grid.GetTile(row, col).GetValue()){
-                        grid.MergeTiles(row, col, i-1, col);
-                    } else{
-                        grid.MoveTile(row, col, i, col);
+                if(newRow !== -1){
+                    if(grid.IsSquareEmpty(newRow, col)){
+                        grid.MoveTile(row, col, newRow, col);
+                    } else {
+                        grid.MergeTiles(row, col, newRow, col);
                     }
-                }else{
-                    grid.MoveTile(row, col, i, col);
                 }
-
             }
         }
     }
@@ -113,19 +112,19 @@ function HandleArrowDown(){
             // Only continue if we have a square
             if(!grid.IsSquareEmpty(row, col)){
 
-                let i = row;
-                while(i < grid.GetGridSize()-1 && grid.IsSquareEmpty(i+1, col)){
-                    i++;
+                let currRow = row+1;
+                let newRow = -1;
+                while(currRow < grid.GetGridSize() && (grid.IsSquareEmpty(currRow, col) || grid.AreEqualValue(row, col, currRow, col))){
+                    newRow = currRow;
+                    currRow++;
                 }
 
-                if(i< grid.GetGridSize()-1){
-                    if(grid.GetTile(i+1, col).GetValue() === grid.GetTile(row, col).GetValue()){
-                        grid.MergeTiles(row, col, i+1, col);
-                    } else{
-                        grid.MoveTile(row, col,i, col);
+                if(newRow !== -1){
+                    if(grid.IsSquareEmpty(newRow, col)){
+                        grid.MoveTile(row, col, newRow, col);
+                    } else {
+                        grid.MergeTiles(row, col, newRow, col);
                     }
-                }else{
-                    grid.MoveTile(row, col, i, col);
                 }
             }
         }

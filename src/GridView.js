@@ -29,8 +29,6 @@ class GridView{
         let fromTile = this.GetTile(fromRow, fromCol);
         let toTile = this.GetTile(toRow, toCol);
 
-        console.log("MERGING");
-
         this.MoveTile(fromRow, fromCol, toRow, toCol);
         setTimeout(() => {
             this.DeleteTile(toTile);

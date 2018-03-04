@@ -29,9 +29,13 @@ class GridView{
         let fromTile = this.GetTile(fromRow, fromCol);
         let toTile = this.GetTile(toRow, toCol);
 
+        console.log("MERGING");
+
         this.MoveTile(fromRow, fromCol, toRow, toCol);
-        this.DeleteTile(toTile);
-        this.SetTileValue(toRow, toCol, newValue);
+        setTimeout(() => {
+            this.DeleteTile(toTile);
+            this.SetTileValue(toRow, toCol, newValue);
+        }, 300);
     }
     
     SetTileValue(row, col, newValue){

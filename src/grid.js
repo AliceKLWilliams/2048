@@ -92,4 +92,8 @@ class Grid{
             this.AddTile(newPosition.x, newPosition.y, GetStartingValue());
         }
     }
+
+    GetStartingValue(){
+        return Math.random() < 0.9 ? 2 : 4;
+    }
 }

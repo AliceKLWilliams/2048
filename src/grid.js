@@ -76,15 +76,14 @@ class Grid{
     }
 
     IsGridFull(){
-        let isFull = true;
         for(let row = 0; row < this.GetGridSize(); row++){
             for(let col = 0; col < this.GetGridSize(); col++){
                 if(this.IsSquareEmpty(row, col)){
-                    isFull = false;
+                    return false;
                 }
             }
         }
-        return isFull;
+        return true;
     }
 
     AddRandomTile(){

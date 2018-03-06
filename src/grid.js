@@ -63,7 +63,10 @@ class Grid{
 
     GetEmptyPosition(){
         let newPos = {x:-1, y:-1};
-        while(newPos.x == -1){
+
+        if(this.IsGridFull()) return newPos;
+
+        while(newPos.x === -1){
             let randX = Math.floor(Math.random()*this.GetGridSize());
             let randY = Math.floor(Math.random()*this.GetGridSize());
     
@@ -89,7 +92,7 @@ class Grid{
     AddRandomTile(){
         if(!this.IsGridFull()){
             let newPosition = this.GetEmptyPosition();
-            this.AddTile(newPosition.x, newPosition.y, GetStartingValue());
+            this.AddTile(newPosition.x, newPosition.y, this.GetStartingValue());
         }
     }
 

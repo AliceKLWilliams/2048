@@ -2,6 +2,7 @@ class Game{
     constructor(gridSize){
         this.grid = new Grid(gridSize);
         this.IsKeyPressed = false;
+        this.isExecuting = false;
 
         this.AddEventListeners();
     }
@@ -12,8 +13,11 @@ class Game{
     }
 
     HandleKeyPress(e){
-        if(this.IsKeyPressed){return;}
+        if(this.IsKeyPressed || this.isExecuting){return;}
     
+        this.isExecuting = true;
+        this.IsKeyPressed = true;
+
         if(e.key === "ArrowDown"){
             this.HandleArrowDown();
         } else if(e.key === "ArrowUp"){
@@ -23,8 +27,11 @@ class Game{
         } else if(e.key === "ArrowLeft"){
             this.HandleArrowLeft();
         }
-    
-        this.IsKeyPressed = true;
+
+        setTimeout(() => {
+            this.grid.AddRandomTile(); 
+            this.isExecuting = false;
+        }, 300);
     }
 
     HandleArrowLeft(){

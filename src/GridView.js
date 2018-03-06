@@ -1,6 +1,7 @@
 class GridView{
     constructor(gridSize){
         this.gridElement = document.querySelector(".grid");
+        this.messageElement = document.querySelector(".msg");
     }
 
     AddTile(row, col, value){
@@ -66,5 +67,9 @@ class GridView{
 
     GetTile(row, col){
         return this.gridElement.querySelector("[class*='.r"+row+"-c"+col+"'");
+    }
+
+    DisplayMessage(msg){
+        this.messageElement.textContent = msg;
     }
 }

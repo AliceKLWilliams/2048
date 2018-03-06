@@ -99,4 +99,8 @@ class Grid{
     GetStartingValue(){
         return Math.random() < 0.9 ? 2 : 4;
     }
+
+    DisplayMessage(msg){
+        this.view.DisplayMessage(msg);
+    }
 }

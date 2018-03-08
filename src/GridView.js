@@ -2,6 +2,22 @@ class GridView{
     constructor(gridSize){
         this.gridElement = document.querySelector(".grid");
         this.messageElement = document.querySelector(".msg");
+
+        this.CreateView(gridSize);
+    }
+
+    CreateView(gridSize){
+        for(let i = 0; i < gridSize; i++){
+            let gridRow = document.createElement("div");
+            gridRow.classList.add("grid__row");
+            this.gridElement.appendChild(gridRow);
+            for (let j = 0; j < gridSize; j++){
+                let gridSquare = document.createElement("div");
+                gridSquare.classList.add("grid__square");
+                gridRow.appendChild(gridSquare);
+            }
+        }
+
     }
 
     AddTile(row, col, value){

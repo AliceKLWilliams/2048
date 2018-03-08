@@ -6,6 +6,13 @@ class GridView{
         this.CreateView(gridSize);
     }
 
+    RestartGame(){
+        let tiles = [...document.querySelectorAll(".grid__tile")];
+        tiles.forEach(function(tile){
+            this.gridElement.removeChild(tile);
+        }.bind(this));
+    }
+
     CreateView(gridSize){
         for(let i = 0; i < gridSize; i++){
             let gridRow = document.createElement("div");

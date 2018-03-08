@@ -10,6 +10,10 @@ class Game{
     AddEventListeners(){
         window.addEventListener("keydown", this.HandleKeyPress.bind(this), false);
         window.addEventListener("keyup", () => {this.IsKeyPressed = false;});
+        document.querySelector(".btn").addEventListener("click", () => {
+            this.grid.RestartGame();
+            this.StartGame();
+        });
     }
 
     HandleKeyPress(e){

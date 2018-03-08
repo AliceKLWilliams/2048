@@ -10,8 +10,28 @@ html, body{
     font-family: sans-serif;
 }
 
-$tile-height: 75px;
-$tile-width: 75px;
+$tile-size: 75px;
+
+.container{
+    display:flex;
+    width:100%;
+    height:100%;
+
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .header{
+        .btn{
+            width:120px;
+            height:60px;
+
+            border:none;
+            background-color: #edcf72;
+        }
+        margin-bottom:30px;
+    }
+}
 
 .grid{
 
@@ -21,8 +41,8 @@ $tile-width: 75px;
 
     &__square{
         display: inline-block;
-        width: $tile-width;
-        height: $tile-height;
+        width: $tile-size;
+        height: $tile-size;
         margin:12.5px;
         background-color: white;
     }
@@ -34,8 +54,8 @@ $tile-width: 75px;
 
         position:absolute;
 
-        width: $tile-width;
-        height: $tile-height;
+        width: $tile-size;
+        height: $tile-size;
 
         background-color:#eee4da;
         color:#776e65;

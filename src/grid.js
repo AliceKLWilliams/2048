@@ -1,6 +1,7 @@
 class Grid{
     constructor(gridSize){
         this.grid = [];
+        this.gridSize = gridSize;
         for(let i = 0; i < gridSize; i++){
             let row = [];
             for(let j = 0; j < gridSize; j++){
@@ -10,6 +11,16 @@ class Grid{
         }
 
         this.view = new GridView(gridSize);
+    }
+
+    RestartGame(){
+        for(let i = 0; i < this.gridSize; i++){
+            for(let j = 0; j < this.gridSize; j++){
+                this.grid[i][j] = -1;
+            }
+        }
+
+        this.view.RestartGame();
     }
 
     GetGridSize(){

@@ -37,7 +37,7 @@ class Game{
         }
 
         setTimeout(() => {
-            if(hasMoved){this.AddRandomTile();}
+            if(hasMoved) {this.AddRandomTile();}
 
             if(!this.grid.IsMoveAvailable()){
                 this.view.DisplayMessage("You Lose");

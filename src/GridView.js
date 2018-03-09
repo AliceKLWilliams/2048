@@ -50,25 +50,22 @@ class GridView{
     }
     
     MergeTiles(fromRow, fromCol, toRow, toCol, newValue){
-        let fromTile = this.GetTile(fromRow, fromCol);
-        let toTile = this.GetTile(toRow, toCol);
-
         this.MoveTile(fromRow, fromCol, toRow, toCol);
         setTimeout(() => {
-            this.DeleteTile(toTile);
+            this.DeleteTile(toRow, toCol);
             this.SetTileValue(toRow, toCol, newValue);
         }, 300);
     }
     
     SetTileValue(row, col, newValue){
         let tile = this.GetTile(row, col);
-
         tile.textContent = newValue;
         tile.className = "";
         tile.classList.add("grid__tile", "grid__tile--"+newValue, "r"+row+"-c"+col);
     }
 
-    DeleteTile(tileToDelete){
+    DeleteTile(row, col){
+        let tileToDelete = this.gridElement.querySelector(".r"+row+"-c"+col);
         this.gridElement.removeChild(tileToDelete);
     }
 
@@ -89,7 +86,7 @@ class GridView{
     }
 
     GetTile(row, col){
-        return this.gridElement.querySelector("[class*='r"+row+"-c"+col+"'");
+        return this.gridElement.querySelector(".r"+row+"-c"+col);
     }
 
     DisplayMessage(msg){

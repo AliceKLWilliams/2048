@@ -79,6 +79,99 @@ class Grid{
         return newPos;
     }
 
+    IsMoveAvailable(){
+        let canMove = false;
+        canMove |= this.CanMoveRight();
+        canMove |= this.CanMoveLeft();
+        canMove |= this.CanMoveUp();
+        canMove |= this.CanMoveDown();
+        return canMove;
+    }
+
+    CanMoveLeft(){
+        for(let row = 0; row < this.GetGridSize(); row++){
+            for(let col = 1; col <= this.GetGridSize()-1; col++){
+    
+                if(!this.IsSquareEmpty(row, col)){
+    
+                    let currCol = col-1;
+                    let newCol = -1;
+                    while(currCol >= 0 && (this.IsSquareEmpty(row, currCol) || this.AreEqualValue(row, col, row, currCol))){
+                        newCol = currCol;
+                        currCol--;
+                    }
+                    if(newCol != -1){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    CanMoveRight(){
+        for(let row = 0; row < this.GetGridSize(); row++){
+            for(let col = this.GetGridSize() - 2; col >= 0; col--){
+                if(!this.IsSquareEmpty(row, col)){
+    
+                    let currCol = col+1;
+                    let newCol = -1;
+                    while(currCol < this.GetGridSize() && (this.IsSquareEmpty(row, currCol) || this.AreEqualValue(row, col, row, currCol))){
+                        newCol = currCol;
+                        currCol++;
+                    }
+                    if(newCol != -1){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    CanMoveDown(){
+        for(let row = this.GetGridSize() - 2; row >= 0; row--){
+            for(let col = 0; col < this.GetGridSize(); col++){
+                // Only continue if we have a square
+                if(!this.IsSquareEmpty(row, col)){
+    
+                    let currRow = row+1;
+                    let newRow = -1;
+                    while(currRow < this.GetGridSize() && (this.IsSquareEmpty(currRow, col) || this.AreEqualValue(row, col, currRow, col))){
+                        newRow = currRow;
+                        currRow++;
+                    }
+
+                    if(newRow != -1){
+                        return true;
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
+
+    CanMoveUp(){
+        for(let row = 1; row < this.GetGridSize(); row++){
+            for(let col = 0; col < this.GetGridSize(); col++){
+                if(!this.IsSquareEmpty(row, col)){
+    
+                    let currRow = row-1;
+                    let newRow = -1;
+                    while(currRow >= 0 && (this.IsSquareEmpty(currRow, col) || this.AreEqualValue(row, col, currRow, col))){
+                        newRow = currRow;
+                        currRow--;
+                    }
+                    if(newRow != -1){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     IsGridFull(){
         for(let row = 0; row < this.GetGridSize(); row++){
             for(let col = 0; col < this.GetGridSize(); col++){

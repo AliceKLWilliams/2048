@@ -1,4 +1,4 @@
 window.onload = function(){
-    game = new Game(4);
+    game = new Game(2);
     game.StartGame();
 }

@@ -25,26 +25,21 @@ class Game{
         this.isExecuting = true;
         this.IsKeyPressed = true;
 
+        let hasMoved = false;
         if(e.key === "ArrowDown"){
-            this.HandleArrowDown(true);
+            hasMoved = this.HandleArrowDown();
         } else if(e.key === "ArrowUp"){
-            this.HandleArrowUp(true);
+            hasMoved = this.HandleArrowUp();
         } else if(e.key === "ArrowRight"){
-            this.HandleArrowRight(true);
+            hasMoved = this.HandleArrowRight();
         } else if(e.key === "ArrowLeft"){
-            this.HandleArrowLeft(true);
+            hasMoved = this.HandleArrowLeft();
         }
 
         setTimeout(() => {
-            this.AddRandomTile(); 
+            if(hasMoved){this.AddRandomTile();}
 
-            let canMove = false;
-            canMove |= this.HandleArrowDown(false);
-            canMove |= this.HandleArrowUp(false);
-            canMove |= this.HandleArrowLeft(false);
-            canMove |= this.HandleArrowRight(false);
-
-            if(!canMove){
+            if(!this.grid.IsMoveAvailable()){
                 this.view.DisplayMessage("You Lose");
             }
 
@@ -53,6 +48,7 @@ class Game{
     }
 
     HandleArrowLeft(executeMove){
+        let hasTileMoved = false;
         // Scan Grid Left -> Right
         for(let row = 0; row < this.grid.GetGridSize(); row++){
             for(let col = 1; col <= this.grid.GetGridSize()-1; col++){
@@ -67,25 +63,23 @@ class Game{
                     }
     
                     if(newCol !== -1){
-                        if(executeMove){
-                            if(this.grid.IsSquareEmpty(row, newCol)){
-                                this.grid.MoveTile(row, col, row, newCol);
-                                this.view.MoveTile(row, col, row, newCol);
-                            } else {
-                                let newValue = this.grid.MergeTiles(row, col, row, newCol);
-                                this.view.MergeTiles(row, col, row, newCol, newValue);
-                            }
-                        } else{
-                            return true;
+                        if(this.grid.IsSquareEmpty(row, newCol)){
+                            this.grid.MoveTile(row, col, row, newCol);
+                            this.view.MoveTile(row, col, row, newCol);
+                        } else {
+                            let newValue = this.grid.MergeTiles(row, col, row, newCol);
+                            this.view.MergeTiles(row, col, row, newCol, newValue);
                         }
+                        hasTileMoved = true;
                     }
                 }
             }
         }
-        return false;
+        return hasTileMoved;
     }
     
     HandleArrowRight(executeMove){
+        let hasTileMoved = false;
         // Scan Grid Right -> Left
         for(let row = 0; row < this.grid.GetGridSize(); row++){
             for(let col = this.grid.GetGridSize() - 2; col >= 0; col--){
@@ -99,25 +93,23 @@ class Game{
                     }
     
                     if(newCol !== -1){
-                        if(executeMove){
-                            if(this.grid.IsSquareEmpty(row, newCol)){
-                                this.grid.MoveTile(row, col, row, newCol);
-                                this.view.MoveTile(row, col, row, newCol);
-                            } else {
-                                let newValue = this.grid.MergeTiles(row, col, row, newCol);
-                                this.view.MergeTiles(row, col, row, newCol, newValue);
-                            }
-                        } else{
-                            return true;
+                        if(this.grid.IsSquareEmpty(row, newCol)){
+                            this.grid.MoveTile(row, col, row, newCol);
+                            this.view.MoveTile(row, col, row, newCol);
+                        } else {
+                            let newValue = this.grid.MergeTiles(row, col, row, newCol);
+                            this.view.MergeTiles(row, col, row, newCol, newValue);
                         }
+                        hasTileMoved = true;
                     }
                 }
             }
         }
-        return false;
+        return hasTileMoved;
     }
     
     HandleArrowUp(executeMove){
+        let hasTileMoved = false;
         // Scan Grid Top Down
         for(let row = 1; row < this.grid.GetGridSize(); row++){
             for(let col = 0; col < this.grid.GetGridSize(); col++){
@@ -131,26 +123,23 @@ class Game{
                     }
     
                     if(newRow !== -1){
-                        if(executeMove){
-                            if(this.grid.IsSquareEmpty(newRow, col)){
-                                this.grid.MoveTile(row, col, newRow, col);
-                                this.view.MoveTile(row, col, newRow, col);
-                            } else {
-                                let newValue = this.grid.MergeTiles(row, col, newRow, col);
-                                this.view.MergeTiles(row, col, newRow, col, newValue);
-                            }
-                        } else{
-                            return true;
+                        if(this.grid.IsSquareEmpty(newRow, col)){
+                            this.grid.MoveTile(row, col, newRow, col);
+                            this.view.MoveTile(row, col, newRow, col);
+                        } else {
+                            let newValue = this.grid.MergeTiles(row, col, newRow, col);
+                            this.view.MergeTiles(row, col, newRow, col, newValue);
                         }
-                        
+                        hasTileMoved = true;
                     }
                 }
             }
         }
-        return false;
+        return hasTileMoved;
     }
     
     HandleArrowDown(executeMove){
+        let hasTileMoved = false;
         // Scan Grid Bottom Up
         for(let row = this.grid.GetGridSize() - 2; row >= 0; row--){
             for(let col = 0; col < this.grid.GetGridSize(); col++){
@@ -165,22 +154,19 @@ class Game{
                     }
     
                     if(newRow !== -1){
-                        if(executeMove){
-                            if(this.grid.IsSquareEmpty(newRow, col)){
-                                this.grid.MoveTile(row, col, newRow, col);
-                                this.view.MoveTile(row, col, newRow, col);
-                            } else {
-                                let newValue = this.grid.MergeTiles(row, col, newRow, col);
-                                this.view.MergeTiles(row, col, newRow, col, newValue);
-                            }
-                        } else{
-                            return true;
+                        if(this.grid.IsSquareEmpty(newRow, col)){
+                            this.grid.MoveTile(row, col, newRow, col);
+                            this.view.MoveTile(row, col, newRow, col);
+                        } else {
+                            let newValue = this.grid.MergeTiles(row, col, newRow, col);
+                            this.view.MergeTiles(row, col, newRow, col, newValue);
                         }
+                        hasTileMoved = true;
                     }
                 }
             }
         }
-        return false;
+        return hasTileMoved;
     }
 
     AddRandomTile(){

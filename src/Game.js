@@ -1,6 +1,8 @@
 class Game{
     constructor(gridSize){
         this.grid = new Grid(gridSize);
+        this.view = new GridView(gridSize);
+
         this.IsKeyPressed = false;
         this.isExecuting = false;
 
@@ -12,6 +14,7 @@ class Game{
         window.addEventListener("keyup", () => {this.IsKeyPressed = false;});
         document.querySelector(".btn").addEventListener("click", () => {
             this.grid.RestartGame();
+            this.view.RestartGame();
             this.StartGame();
         });
     }
@@ -33,7 +36,7 @@ class Game{
         }
 
         setTimeout(() => {
-            this.grid.AddRandomTile(); 
+            this.AddRandomTile(); 
 
             let canMove = false;
             canMove |= this.HandleArrowDown(false);
@@ -42,7 +45,7 @@ class Game{
             canMove |= this.HandleArrowRight(false);
 
             if(!canMove){
-                this.grid.DisplayMessage("You Lose");
+                this.view.DisplayMessage("You Lose");
             }
 
             this.isExecuting = false;
@@ -67,8 +70,10 @@ class Game{
                         if(executeMove){
                             if(this.grid.IsSquareEmpty(row, newCol)){
                                 this.grid.MoveTile(row, col, row, newCol);
+                                this.view.MoveTile(row, col, row, newCol);
                             } else {
-                                this.grid.MergeTiles(row, col, row, newCol);
+                                let newValue = this.grid.MergeTiles(row, col, row, newCol);
+                                this.view.MergeTiles(row, col, row, newCol, newValue);
                             }
                         } else{
                             return true;
@@ -97,8 +102,10 @@ class Game{
                         if(executeMove){
                             if(this.grid.IsSquareEmpty(row, newCol)){
                                 this.grid.MoveTile(row, col, row, newCol);
+                                this.view.MoveTile(row, col, row, newCol);
                             } else {
-                                this.grid.MergeTiles(row, col, row, newCol);
+                                let newValue = this.grid.MergeTiles(row, col, row, newCol);
+                                this.view.MergeTiles(row, col, row, newCol, newValue);
                             }
                         } else{
                             return true;
@@ -127,8 +134,10 @@ class Game{
                         if(executeMove){
                             if(this.grid.IsSquareEmpty(newRow, col)){
                                 this.grid.MoveTile(row, col, newRow, col);
+                                this.view.MoveTile(row, col, newRow, col);
                             } else {
-                                this.grid.MergeTiles(row, col, newRow, col);
+                                let newValue = this.grid.MergeTiles(row, col, newRow, col);
+                                this.view.MergeTiles(row, col, newRow, col, newValue);
                             }
                         } else{
                             return true;
@@ -159,8 +168,10 @@ class Game{
                         if(executeMove){
                             if(this.grid.IsSquareEmpty(newRow, col)){
                                 this.grid.MoveTile(row, col, newRow, col);
+                                this.view.MoveTile(row, col, newRow, col);
                             } else {
-                                this.grid.MergeTiles(row, col, newRow, col);
+                                let newValue = this.grid.MergeTiles(row, col, newRow, col);
+                                this.view.MergeTiles(row, col, newRow, col, newValue);
                             }
                         } else{
                             return true;
@@ -172,10 +183,18 @@ class Game{
         return false;
     }
 
+    AddRandomTile(){
+        if(!this.grid.IsGridFull()){
+            let newPosition = this.grid.GetEmptyPosition();
+            let value = this.grid.GetStartingValue();
+            this.grid.AddTile(newPosition.x, newPosition.y, value);
+            this.view.AddTile(newPosition.x, newPosition.y, value);
+        }
+    }
+
     StartGame(){
         for(let i = 0; i < 2; i++){
-            let newPosition = this.grid.GetEmptyPosition();
-            this.grid.AddTile(newPosition.x, newPosition.y, this.grid.GetStartingValue());
+            this.AddRandomTile();
         }
     }
 }

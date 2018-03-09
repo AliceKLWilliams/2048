@@ -29,7 +29,7 @@ class GridView{
 
     AddTile(row, col, value){
         let newDiv = document.createElement("div");
-        newDiv.classList.add("grid__tile", "grid__tile--"+value, ".r"+row+"-c"+col);
+        newDiv.classList.add("grid__tile", "grid__tile--"+value, "r"+row+"-c"+col);
 
         newDiv.textContent = value;
 
@@ -46,7 +46,7 @@ class GridView{
         tile.style.left = this.CalculateLeft(toCol)+ "px";
 
         tile.className = "";
-        tile.classList.add("grid__tile", "grid__tile--"+tile.textContent, ".r"+toRow+"-c"+toCol);
+        tile.classList.add("grid__tile", "grid__tile--"+tile.textContent, "r"+toRow+"-c"+toCol);
     }
     
     MergeTiles(fromRow, fromCol, toRow, toCol, newValue){
@@ -65,7 +65,7 @@ class GridView{
 
         tile.textContent = newValue;
         tile.className = "";
-        tile.classList.add("grid__tile", "grid__tile--"+newValue, ".r"+row+"-c"+col);
+        tile.classList.add("grid__tile", "grid__tile--"+newValue, "r"+row+"-c"+col);
     }
 
     DeleteTile(tileToDelete){
@@ -89,7 +89,7 @@ class GridView{
     }
 
     GetTile(row, col){
-        return this.gridElement.querySelector("[class*='.r"+row+"-c"+col+"'");
+        return this.gridElement.querySelector("[class*='r"+row+"-c"+col+"'");
     }
 
     DisplayMessage(msg){

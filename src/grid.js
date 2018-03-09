@@ -9,8 +9,6 @@ class Grid{
             }
             this.grid.push(row);
         }
-
-        this.view = new GridView(gridSize);
     }
 
     RestartGame(){
@@ -19,8 +17,6 @@ class Grid{
                 this.grid[i][j] = -1;
             }
         }
-
-        this.view.RestartGame();
     }
 
     GetGridSize(){
@@ -45,27 +41,21 @@ class Grid{
 
     AddTile(row, col, value){
         this.SetTileValue(row, col, value);
-
-        this.view.AddTile(row, col, value);
     }
 
     MoveTile(fromRow, fromCol, toRow, toCol){
         if(!(fromRow == toRow && fromCol == toCol)){
-
             this.SetTileValue(toRow, toCol, this.GetTileValue(fromRow, fromCol));
             this.SetTileValue(fromRow, fromCol, -1);
-
-            this.view.MoveTile(fromRow, fromCol, toRow, toCol);
         }
     }
 
     MergeTiles(fromRow, fromCol, toRow, toCol){
         let newValue = this.GetTileValue(toRow, toCol) + this.GetTileValue(fromRow, fromCol);
-
         this.SetTileValue(toRow, toCol, newValue);
         this.SetTileValue(fromRow, fromCol, -1);
 
-        this.view.MergeTiles(fromRow, fromCol, toRow, toCol, newValue);
+        return newValue;
     }
 
     AreEqualValue(row1, col1, row2, col2){
@@ -100,18 +90,7 @@ class Grid{
         return true;
     }
 
-    AddRandomTile(){
-        if(!this.IsGridFull()){
-            let newPosition = this.GetEmptyPosition();
-            this.AddTile(newPosition.x, newPosition.y, this.GetStartingValue());
-        }
-    }
-
     GetStartingValue(){
         return Math.random() < 0.9 ? 2 : 4;
-    }
-
-    DisplayMessage(msg){
-        this.view.DisplayMessage(msg);
     }
 }

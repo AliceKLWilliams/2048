@@ -47,122 +47,84 @@ class Game{
         }, 300);
     }
 
-    HandleArrowLeft(executeMove){
+    HandleArrowLeft(){
         let hasTileMoved = false;
         // Scan Grid Left -> Right
         for(let row = 0; row < this.grid.GetGridSize(); row++){
             for(let col = 1; col <= this.grid.GetGridSize()-1; col++){
-    
-                if(!this.grid.IsSquareEmpty(row, col)){
-    
-                    let currCol = col-1;
-                    let newCol = -1;
-                    while(currCol >= 0 && (this.grid.IsSquareEmpty(row, currCol) || this.grid.AreEqualValue(row, col, row, currCol))){
-                        newCol = currCol;
-                        currCol--;
+                let newCol = this.grid.GetNewColumnLeft(row, col);
+                if(newCol !== -1){
+                    if(this.grid.IsSquareEmpty(row, newCol)){
+                        this.grid.MoveTile(row, col, row, newCol);
+                        this.view.MoveTile(row, col, row, newCol);
+                    } else {
+                        let newValue = this.grid.MergeTiles(row, col, row, newCol);
+                        this.view.MergeTiles(row, col, row, newCol, newValue);
                     }
-    
-                    if(newCol !== -1){
-                        if(this.grid.IsSquareEmpty(row, newCol)){
-                            this.grid.MoveTile(row, col, row, newCol);
-                            this.view.MoveTile(row, col, row, newCol);
-                        } else {
-                            let newValue = this.grid.MergeTiles(row, col, row, newCol);
-                            this.view.MergeTiles(row, col, row, newCol, newValue);
-                        }
-                        hasTileMoved = true;
-                    }
+                    hasTileMoved = true;
                 }
             }
         }
         return hasTileMoved;
     }
     
-    HandleArrowRight(executeMove){
+    HandleArrowRight(){
         let hasTileMoved = false;
         // Scan Grid Right -> Left
         for(let row = 0; row < this.grid.GetGridSize(); row++){
             for(let col = this.grid.GetGridSize() - 2; col >= 0; col--){
-                if(!this.grid.IsSquareEmpty(row, col)){
-    
-                    let currCol = col+1;
-                    let newCol = -1;
-                    while(currCol < this.grid.GetGridSize() && (this.grid.IsSquareEmpty(row, currCol) || this.grid.AreEqualValue(row, col, row, currCol))){
-                        newCol = currCol;
-                        currCol++;
+                let newCol = this.grid.GetNewColumnRight(row, col);
+                if(newCol !== -1){
+                    if(this.grid.IsSquareEmpty(row, newCol)){
+                        this.grid.MoveTile(row, col, row, newCol);
+                        this.view.MoveTile(row, col, row, newCol);
+                    } else {
+                        let newValue = this.grid.MergeTiles(row, col, row, newCol);
+                        this.view.MergeTiles(row, col, row, newCol, newValue);
                     }
-    
-                    if(newCol !== -1){
-                        if(this.grid.IsSquareEmpty(row, newCol)){
-                            this.grid.MoveTile(row, col, row, newCol);
-                            this.view.MoveTile(row, col, row, newCol);
-                        } else {
-                            let newValue = this.grid.MergeTiles(row, col, row, newCol);
-                            this.view.MergeTiles(row, col, row, newCol, newValue);
-                        }
-                        hasTileMoved = true;
-                    }
+                    hasTileMoved = true;
                 }
             }
         }
         return hasTileMoved;
     }
     
-    HandleArrowUp(executeMove){
+    HandleArrowUp(){
         let hasTileMoved = false;
         // Scan Grid Top Down
         for(let row = 1; row < this.grid.GetGridSize(); row++){
             for(let col = 0; col < this.grid.GetGridSize(); col++){
-                if(!this.grid.IsSquareEmpty(row, col)){
-    
-                    let currRow = row-1;
-                    let newRow = -1;
-                    while(currRow >= 0 && (this.grid.IsSquareEmpty(currRow, col) || this.grid.AreEqualValue(row, col, currRow, col))){
-                        newRow = currRow;
-                        currRow--;
+                let newRow = this.grid.GetNewRowUp(row, col);
+                if(newRow !== -1){
+                    if(this.grid.IsSquareEmpty(newRow, col)){
+                        this.grid.MoveTile(row, col, newRow, col);
+                        this.view.MoveTile(row, col, newRow, col);
+                    } else {
+                        let newValue = this.grid.MergeTiles(row, col, newRow, col);
+                        this.view.MergeTiles(row, col, newRow, col, newValue);
                     }
-    
-                    if(newRow !== -1){
-                        if(this.grid.IsSquareEmpty(newRow, col)){
-                            this.grid.MoveTile(row, col, newRow, col);
-                            this.view.MoveTile(row, col, newRow, col);
-                        } else {
-                            let newValue = this.grid.MergeTiles(row, col, newRow, col);
-                            this.view.MergeTiles(row, col, newRow, col, newValue);
-                        }
-                        hasTileMoved = true;
-                    }
+                    hasTileMoved = true;
                 }
             }
         }
         return hasTileMoved;
     }
     
-    HandleArrowDown(executeMove){
+    HandleArrowDown(){
         let hasTileMoved = false;
         // Scan Grid Bottom Up
         for(let row = this.grid.GetGridSize() - 2; row >= 0; row--){
             for(let col = 0; col < this.grid.GetGridSize(); col++){
-                // Only continue if we have a square
-                if(!this.grid.IsSquareEmpty(row, col)){
-    
-                    let currRow = row+1;
-                    let newRow = -1;
-                    while(currRow < this.grid.GetGridSize() && (this.grid.IsSquareEmpty(currRow, col) || this.grid.AreEqualValue(row, col, currRow, col))){
-                        newRow = currRow;
-                        currRow++;
+                let newRow = this.grid.GetNewRowDown(row, col);
+                if(newRow !== -1){
+                    if(this.grid.IsSquareEmpty(newRow, col)){
+                        this.grid.MoveTile(row, col, newRow, col);
+                        this.view.MoveTile(row, col, newRow, col);
+                    } else {
+                        let newValue = this.grid.MergeTiles(row, col, newRow, col);
+                        this.view.MergeTiles(row, col, newRow, col, newValue);
                     }
-    
-                    if(newRow !== -1){
-                        if(this.grid.IsSquareEmpty(newRow, col)){
-                            this.grid.MoveTile(row, col, newRow, col);
-                            this.view.MoveTile(row, col, newRow, col);
-                        } else {
-                            let newValue = this.grid.MergeTiles(row, col, newRow, col);
-                            this.view.MergeTiles(row, col, newRow, col, newValue);
-                        }
-                        hasTileMoved = true;
-                    }
+                    hasTileMoved = true;
                 }
             }
         }

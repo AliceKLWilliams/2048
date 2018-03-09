@@ -11,6 +11,8 @@ class GridView{
         tiles.forEach(function(tile){
             this.gridElement.removeChild(tile);
         }.bind(this));
+
+        this.messageElement.textContent = "";
     }
 
     CreateView(gridSize){

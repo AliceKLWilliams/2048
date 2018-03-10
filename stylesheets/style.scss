@@ -23,12 +23,11 @@ $dark-text: #776e65;
     height:100%;
 
     align-items: center;
-    justify-content: center;
     flex-direction: column;
 
     .header{
 
-        margin-bottom:20px;
+        margin:5px;
 
         &__column{
             display:inline-flex;
@@ -58,6 +57,14 @@ $dark-text: #776e65;
             cursor:pointer;
         }
     }
+}
+
+.msg{
+    margin:10px;
+    background:#E3F2FD;
+    width:200px;
+    text-align: center;
+    border-radius: 5px;
 }
 
 .grid{

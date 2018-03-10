@@ -2,6 +2,7 @@ class GridView{
     constructor(gridSize){
         this.gridElement = document.querySelector(".grid");
         this.messageElement = document.querySelector(".msg");
+        this.scoreElement = document.querySelector(".score");
 
         this.CreateView(gridSize);
     }
@@ -60,11 +61,8 @@ class GridView{
         }, 300);
     }
 
-    AddToScore(val){
-        let scoreElement = document.querySelector(".score");
-        let score = parseInt(scoreElement.textContent);
-        score += val;
-        scoreElement.textContent = score;
+    SetScore(newScore){
+        this.scoreElement.textContent = newScore;
     }
     
     SetTileValue(row, col, newValue){

@@ -2,6 +2,7 @@ class Game{
     constructor(gridSize){
         this.grid = new Grid(gridSize);
         this.view = new GridView(gridSize);
+        this.score = 0;
 
         this.IsKeyPressed = false;
         this.isExecuting = false;
@@ -13,6 +14,7 @@ class Game{
         window.addEventListener("keydown", this.HandleKeyPress.bind(this), false);
         window.addEventListener("keyup", () => {this.IsKeyPressed = false;});
         document.querySelector(".btn").addEventListener("click", () => {
+            this.score = 0;
             this.grid.RestartGame();
             this.view.RestartGame();
             this.StartGame();
@@ -60,6 +62,7 @@ class Game{
                     } else {
                         let newValue = this.grid.MergeTiles(row, col, row, newCol);
                         this.view.MergeTiles(row, col, row, newCol, newValue);
+                        this.IncreaseScore(newValue);
                     }
                     hasTileMoved = true;
                 }
@@ -81,6 +84,7 @@ class Game{
                     } else {
                         let newValue = this.grid.MergeTiles(row, col, row, newCol);
                         this.view.MergeTiles(row, col, row, newCol, newValue);
+                        this.IncreaseScore(newValue);
                     }
                     hasTileMoved = true;
                 }
@@ -102,6 +106,7 @@ class Game{
                     } else {
                         let newValue = this.grid.MergeTiles(row, col, newRow, col);
                         this.view.MergeTiles(row, col, newRow, col, newValue);
+                        this.IncreaseScore(newValue);
                     }
                     hasTileMoved = true;
                 }
@@ -123,6 +128,7 @@ class Game{
                     } else {
                         let newValue = this.grid.MergeTiles(row, col, newRow, col);
                         this.view.MergeTiles(row, col, newRow, col, newValue);
+                        this.IncreaseScore(newValue);
                     }
                     hasTileMoved = true;
                 }
@@ -144,5 +150,10 @@ class Game{
         for(let i = 0; i < 2; i++){
             this.AddRandomTile();
         }
+    }
+
+    IncreaseScore(val){
+        this.score += val;
+        this.view.SetScore(this.score);
     }
 }

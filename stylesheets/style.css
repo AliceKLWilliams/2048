@@ -31,7 +31,8 @@ html, body {
     width: 75px;
     height: 75px;
     margin: 12.5px;
-    background-color: white; }
+    background-color: white;
+    border-radius: 10px; }
   .grid__tile {
     display: inline-flex;
     align-items: center;
@@ -39,21 +40,29 @@ html, body {
     position: absolute;
     width: 75px;
     height: 75px;
-    background-color: #eee4da;
-    color: #776e65;
+    background-color: #696969;
+    color: white;
     font-size: 28pt;
+    font-weight: bold;
+    border-radius: 10px;
     transition: top 0.3s linear, left 0.3s linear; }
     .grid__tile--2, .grid__tile--4 {
-      background-color: #ede0c8; }
+      background-color: #ede0c8;
+      color: #776e65; }
     .grid__tile--8, .grid__tile--16 {
-      background-color: #f2b179; }
+      background-color: #f2b179;
+      color: white; }
     .grid__tile--32 {
-      background-color: #f67c5f; }
+      background-color: #f67c5f;
+      color: white; }
     .grid__tile--64 {
-      background-color: #f65e3b; }
-    .grid__tile--128, .grid__tile--256 .grid__tile--512 {
-      background-color: #edcf72; }
+      background-color: #f65e3b;
+      color: white; }
+    .grid__tile--128, .grid__tile--256, .grid__tile--512 {
+      background-color: #edcf72;
+      color: white; }
     .grid__tile--1024, .grid__tile--2054 {
-      background-color: #edc22e; }
+      background-color: #edc22e;
+      color: white; }
 
 /*# sourceMappingURL=style.css.map */

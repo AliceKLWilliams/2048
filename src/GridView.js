@@ -64,6 +64,11 @@ class GridView{
         tile.textContent = newValue;
         tile.className = "";
         tile.classList.add("grid__tile", "grid__tile--"+newValue, "r"+row+"-c"+col);
+
+        let valLength = newValue.toString().split("").length;
+        if(valLength > 3){
+            tile.style.fontSize = (28*(3/valLength)) + "pt";
+        }
     }
 
     DeleteTile(row, col){

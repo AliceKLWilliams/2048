@@ -7,11 +7,15 @@ html, body{
     width:100%;
     height:100%;
 
-    font-family: sans-serif;
+    font-family: "Dosis";
 }
 
 $tile-size: 80px;
 $tile-border-radius:10px;
+
+$light-text:#fffff2;
+$dark-text: #776e65;
+
 
 .container{
     display:flex;
@@ -23,22 +27,45 @@ $tile-border-radius:10px;
     flex-direction: column;
 
     .header{
+
+        margin-bottom:20px;
+
+        &__column{
+            display:inline-flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+
+            height:100px;
+
+            margin-left:10px;
+            margin-right:10px;
+        }
+
         .btn{
-            width:120px;
-            height:60px;
+            width:100px;
+            height:40px;
 
             border:none;
-            background-color: #edcf72;
+            border-radius: 5px;
+            background-color: #1976D2;
+
+            color:$light-text;
+
+            font-weight: bold;
+            text-transform: uppercase;
+
+            cursor:pointer;
         }
-        margin-bottom:30px;
     }
 }
 
 .grid{
 
-    background-color:#bbada0;
+    background-color:#8aacc8;
     display:inline-block;
     position:relative;
+    border-radius: $tile-border-radius;
 
     &__square{
         display: inline-block;
@@ -62,8 +89,8 @@ $tile-border-radius:10px;
         width: $tile-size;
         height: $tile-size;
 
-        background-color: #696969;
-        color: white;
+        background-color: #0D47A1;
+        color: $light-text;
         font-size:28pt;
         font-weight: bold;
 
@@ -71,34 +98,36 @@ $tile-border-radius:10px;
 
         transition: top 0.3s linear, left 0.3s linear;
 
+        &--2, &--4, &--8, &--16, &--32,{
+            color:$dark-text;
+        }
+
+        &--64, &--128, &--256, &--512, &--1024, &--2048{
+            color:$light-text;
+        }
+
         &--2, &--4{
-            background-color: #ede0c8;
-            color: #776e65;
+            background-color: #E3F2FD;
         }
 
         &--8, &--16{
-            background-color: #f2b179;
-            color:white;
+            background-color: #BBDEFB;
         }
 
         &--32{
-            background-color: #f67c5f;
-            color:white;
+            background-color:#90CAF9;
         }
 
         &--64{
-            background-color: #f65e3b;
-            color:white;
+            background-color: #42A5F5;
         }
 
         &--128, &--256, &--512{
-            background-color: #edcf72;
-            color:white;
+            background-color: #2196F3;
         }
 
         &--1024, &--2054{
-            background-color:#edc22e;
-            color:white;
+            background-color:#1976D2;
         }
 
     }

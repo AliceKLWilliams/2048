@@ -56,7 +56,15 @@ class GridView{
         setTimeout(() => {
             this.DeleteTile(toRow, toCol);
             this.SetTileValue(toRow, toCol, newValue);
+            this.AddToScore(newValue);
         }, 300);
+    }
+
+    AddToScore(val){
+        let scoreElement = document.querySelector(".score");
+        let score = parseInt(scoreElement.textContent);
+        score += val;
+        scoreElement.textContent = score;
     }
     
     SetTileValue(row, col, newValue){

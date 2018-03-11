@@ -6,6 +6,7 @@ class Game{
 
         this.IsKeyPressed = false;
         this.isExecuting = false;
+        this.IsGameFinished = false;
 
         this.AddEventListeners();
     }
@@ -15,6 +16,7 @@ class Game{
         window.addEventListener("keyup", () => {this.IsKeyPressed = false;});
         document.querySelector(".btn").addEventListener("click", () => {
             this.score = 0;
+            this.view.SetScore(this.score);
             this.grid.RestartGame();
             this.view.RestartGame();
             this.StartGame();
@@ -41,8 +43,8 @@ class Game{
         setTimeout(() => {
             if(hasMoved) {this.AddRandomTile();}
 
-            if(!this.grid.IsMoveAvailable()){
-                this.view.DisplayMessage("You Lose");
+            if(!this.grid.IsMoveAvailable() && (!this.IsGameFinished)){
+                this.EndGame();
             }
 
             this.isExecuting = false;
@@ -155,5 +157,16 @@ class Game{
     IncreaseScore(val){
         this.score += val;
         this.view.SetScore(this.score);
+    }
+    
+    EndGame(){
+        let currentHighScore = localStorage.getItem("high-score");
+        if(!currentHighScore || this.score > parseInt(currentHighScore)){
+            localStorage.setItem("high-score", this.score);
+            this.view.DisplayMessage("New High Score!");
+        } else{
+            this.view.DisplayMessage("You Lose!");
+        }
+        this.IsGameFinished = true;
     }
 }

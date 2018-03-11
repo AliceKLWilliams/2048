@@ -14,6 +14,7 @@ class GridView{
         }.bind(this));
 
         this.messageElement.textContent = "";
+        this.DisplayHighScore();
     }
 
     CreateView(gridSize){
@@ -28,6 +29,14 @@ class GridView{
             }
         }
 
+        this.DisplayHighScore();
+    }
+
+    DisplayHighScore(){
+        let highScore = localStorage.getItem("high-score");
+        if(highScore){
+            document.querySelector(".high-score").textContent = highScore;
+        }
     }
 
     AddTile(row, col, value){
@@ -57,7 +66,6 @@ class GridView{
         setTimeout(() => {
             this.DeleteTile(toRow, toCol);
             this.SetTileValue(toRow, toCol, newValue);
-            this.AddToScore(newValue);
         }, 300);
     }
 

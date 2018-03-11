@@ -4,9 +4,9 @@ class Game{
         this.view = new GridView(gridSize);
         this.score = 0;
 
-        this.IsKeyPressed = false;
-        this.isExecuting = false;
-        this.IsGameFinished = false;
+        this.IsKeyPressed = false; // to prevent key holding
+        this.isExecuting = false; // to prevent moves during animation
+        this.IsGameFinished = false; // to prevent changing the game message when the game ends
 
         this.AddEventListeners();
     }
@@ -15,11 +15,7 @@ class Game{
         window.addEventListener("keydown", this.HandleKeyPress.bind(this), false);
         window.addEventListener("keyup", () => {this.IsKeyPressed = false;});
         document.querySelector(".btn").addEventListener("click", () => {
-            this.score = 0;
-            this.view.SetScore(this.score);
-            this.grid.RestartGame();
-            this.view.RestartGame();
-            this.StartGame();
+            this.RestartGame();
         });
     }
 
@@ -157,6 +153,19 @@ class Game{
     IncreaseScore(val){
         this.score += val;
         this.view.SetScore(this.score);
+    }
+
+    RestartGame(){
+        // Reset the score
+        this.score = 0;
+        this.view.SetScore(this.score);
+
+        // Reset the model and view
+        this.grid.RestartGame();
+        this.view.RestartGame();
+        
+        // Start the game
+        this.StartGame();
     }
     
     EndGame(){

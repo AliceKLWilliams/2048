@@ -23,6 +23,7 @@ $dark-text: #776e65;
     height:100%;
 
     align-items: center;
+    justify-content: center;
     flex-direction: column;
 
     .header{
@@ -39,6 +40,8 @@ $dark-text: #776e65;
 
             margin-left:10px;
             margin-right:10px;
+            
+            font-size:25px;
         }
 
         .btn{
